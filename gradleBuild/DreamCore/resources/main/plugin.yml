@@ -1,0 +1,6 @@
+main: br.dargoh.dreamcore.DreamCore
+name: DreamCore
+depends: [Vault, ActionBarAPI, TitleAPI, BossBarAPI, HologramAPI, ProtocolLib]
+version: 1.0
+author: Dargoh
+commands:
