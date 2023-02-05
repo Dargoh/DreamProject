@@ -16,6 +16,11 @@ dependencies {
 
     compileOnly(fileTree("../dependencias/PaperSpigotAPI.jar"))
     compileOnly(fileTree("../dependencias/Vault.jar"))
+
+    compileOnly(fileTree("../dependencias/BossBarAPI.jar"))
+    compileOnly(fileTree("../dependencias/HologramAPI.jar"))
+    compileOnly(fileTree("../dependencias/TitleAPI.jar"))
+    compileOnly(fileTree("../dependencias/ActionBarAPI.jar"))
 }
 
 tasks.getByName<Test>("test") {

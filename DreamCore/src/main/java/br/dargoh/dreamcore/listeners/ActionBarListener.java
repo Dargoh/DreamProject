@@ -1,10 +1,13 @@
 package br.dargoh.dreamcore.listeners;
 
 import br.dargoh.dreamcore.DreamCore;
+import br.dargoh.dreamcore.util.PlayerUtils;
+import com.connorlinfoot.actionbarapi.ActionBarAPI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
@@ -35,24 +38,23 @@ public class ActionBarListener implements Listener {
         new BukkitRunnable() {
             @Override
             public void run() {
-                Player p = getTarget(player);
+                Player target = getTarget(player);
 
-                if (p == null){
+                if (target == null){
                     return;
                 }
 
                 if (lastInfo.containsKey(player.getName())) {
-                    if (lastInfo.get(player.getName()).equalsIgnoreCase(p.getName())) {
+                    if (lastInfo.get(player.getName()).equalsIgnoreCase(target.getName())) {
                         return;
                     }
                 }
 
-                // Montar um texto de descricao do player target
+                String description = PlayerUtils.getFormattedName(target);
 
-                // Mandar actionbar para o player
+                ActionBarAPI.sendActionBar(player, description);
 
-                lastInfo.put(player.getName(), p.getName());
-
+                lastInfo.put(player.getName(), target.getName());
             }
         }.runTaskAsynchronously(DreamCore.PLUGIN);
     }
@@ -69,18 +71,22 @@ public class ActionBarListener implements Listener {
         double cos45 = Math.cos(0.7853981633974483D);
 
         for (Player other : player.getWorld().getPlayers()) {
-            if (other != player) {
-                if (other.getLocation().distance(player.getLocation()) <= 5) {
-                    if ((target == null) || (targetDistanceSquared > other.getLocation().distanceSquared(player.getLocation())))
-                    {
-                        Vector t = other.getLocation().add(0.0D, 1.0D, 0.0D).toVector().subtract(l);
-                        if ((n.clone().crossProduct(t).lengthSquared() < radiusSquared) && (t.normalize().dot(n) >= cos45))
-                        {
-                            target = other;
-                            targetDistanceSquared = target.getLocation().distanceSquared(player.getLocation());
-                        }
-                    }
-                }
+            if (other == player) continue;
+
+            if (other.getLocation().distance(player.getLocation()) > 5) continue;
+            
+            if(other.hasPotionEffect(PotionEffectType.INVISIBILITY)) continue;
+
+            if (targetDistanceSquared < other.getLocation().distanceSquared(player.getLocation())) continue;
+
+            if(target != null) continue;
+
+            Vector t = other.getLocation().add(0.0D, 1.0D, 0.0D).toVector().subtract(l);
+
+            if ((n.clone().crossProduct(t).lengthSquared() < radiusSquared) && (t.normalize().dot(n) >= cos45))
+            {
+                target = other;
+                targetDistanceSquared = target.getLocation().distanceSquared(player.getLocation());
             }
         }
 

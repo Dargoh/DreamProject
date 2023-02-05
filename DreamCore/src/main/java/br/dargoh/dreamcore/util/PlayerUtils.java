@@ -8,4 +8,7 @@ public class PlayerUtils {
         player.setHealth(player.getMaxHealth());
     }
 
+    public static String getFormattedName(Player player){
+        return "§7" + player.getName();
+    }
 }
