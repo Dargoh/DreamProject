@@ -1,8 +1,10 @@
 package br.dargoh.dreamcore.listeners;
 
 import br.dargoh.dreamcore.DreamCore;
+import br.dargoh.dreamcore.util.MessageUtils;
 import br.dargoh.dreamcore.util.PlayerUtils;
 import com.connorlinfoot.actionbarapi.ActionBarAPI;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -31,7 +33,7 @@ public class ActionBarListener implements Listener {
 
         sendAction(e.getPlayer());
 
-        last.put(p.getName(), System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(5));
+        last.put(p.getName(), System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(2));
     }
 
     public void sendAction(Player player){
@@ -52,7 +54,7 @@ public class ActionBarListener implements Listener {
 
                 String description = PlayerUtils.getFormattedName(target);
 
-                ActionBarAPI.sendActionBar(player, description);
+                ActionBarAPI.sendActionBar(player, description, 100);
 
                 lastInfo.put(player.getName(), target.getName());
             }
@@ -66,7 +68,8 @@ public class ActionBarListener implements Listener {
         double targetDistanceSquared = 0.0D;
         double radiusSquared = 6;
 
-        Vector l = player.getEyeLocation().toVector();Vector n = player.getLocation().getDirection().normalize();
+        Vector l = player.getEyeLocation().toVector();
+        Vector n = player.getLocation().getDirection().normalize();
 
         double cos45 = Math.cos(0.7853981633974483D);
 
@@ -77,7 +80,7 @@ public class ActionBarListener implements Listener {
             
             if(other.hasPotionEffect(PotionEffectType.INVISIBILITY)) continue;
 
-            if (targetDistanceSquared < other.getLocation().distanceSquared(player.getLocation())) continue;
+            if (targetDistanceSquared > other.getLocation().distanceSquared(player.getLocation())) continue;
 
             if(target != null) continue;
 
