@@ -1,4 +1,4 @@
 package br.dargoh.dreamcore.util;
 
-public class VaultUtil {
+public class ClanUtils {
 }

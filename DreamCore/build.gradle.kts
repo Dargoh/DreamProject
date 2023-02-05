@@ -15,6 +15,7 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 
     compileOnly(fileTree("../dependencias/PaperSpigotAPI.jar"))
+    compileOnly(fileTree("../dependencias/Vault.jar"))
 }
 
 tasks.getByName<Test>("test") {
