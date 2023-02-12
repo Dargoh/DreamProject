@@ -7,6 +7,7 @@ group = "br.dargoh"
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 dependencies {
@@ -21,6 +22,8 @@ dependencies {
     compileOnly(fileTree("../dependencias/HologramAPI.jar"))
     compileOnly(fileTree("../dependencias/TitleAPI.jar"))
     compileOnly(fileTree("../dependencias/ActionBarAPI.jar"))
+
+    compileOnly(fileTree("../dependencias/ProtocolLib.jar"))
 }
 
 tasks.getByName<Test>("test") {
