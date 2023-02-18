@@ -1,5 +1,6 @@
 package br.dargoh.dreamcore.listeners;
 
+import org.bukkit.World;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockIgniteEvent;
@@ -26,6 +27,5 @@ public class WorldListener implements Listener {
     public void onWalkOverSlime(PlayerMoveEvent e){
         // Fazer slime dar launch para o player
     }
-
 
 }
