@@ -24,6 +24,8 @@ dependencies {
     compileOnly(fileTree("../dependencias/ActionBarAPI.jar"))
 
     compileOnly(fileTree("../dependencias/ProtocolLib.jar"))
+
+    compileOnly(fileTree("../dependencias/NDatabase.jar"))
 }
 
 tasks.getByName<Test>("test") {
